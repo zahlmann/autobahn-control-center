@@ -26,4 +26,4 @@ Use the highway and direction dropdowns to narrow the scope before running an AI
 
 ## Data source
 
-Austrian Autobahn cameras via the [ASFINAG](https://www.asfinag.at/) public webcam service.
+Austrian Autobahn cameras via the [ASFINAG public webcam service](https://www.asfinag.at/verkehr-sicherheit/webcams/).
