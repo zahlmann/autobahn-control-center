@@ -175,23 +175,23 @@ _filter_lock = threading.Lock()
 # --- Vision prompt + schema (replaces query planner) ---
 
 VISION_PROMPT = """\
-You are filtering Austrian highway webcam images. Answer "yes" if the image matches the query, "no" otherwise.
+You are filtering Austrian highway webcam images. Your default answer is "no". Only answer "yes" when you can clearly and confidently see concrete visual evidence in the image that matches the query. If you are unsure, answer "no".
 
 Query: "{user_query}"
 
 The camera name is prepended above (e.g. "A01, zwischen Wien-Auhof und Pressbaum, Blickrichtung Wien"). Use it:
-- If the name contains "Rastplatz", "Raststätte", or "LKW Stellplatz", this is a parking/rest area camera — answer "no" for traffic or road condition queries.
-- If the name contains "Parkplatz", same thing — not a road camera.
+- If the name contains "Rastplatz", "Raststätte", "LKW Stellplatz", or "Parkplatz", this is a parking/rest area camera — answer "no" for traffic or road condition queries.
 
 Image details:
 - ASFINAG highway camera snapshot. Top overlay shows air temp, time, road temp. Bottom bar is the ASFINAG logo — ignore it.
-- Tunnel cameras have yellow/orange tint from sodium lighting — this is normal.
+- Tunnel cameras have yellow/orange tint from sodium lighting — this is normal, not a weather or visibility issue.
 
-Rules:
-- For traffic queries (stau, traffic, vehicles): only match if the image shows a road with vehicles. Parked vehicles in a lot do not count.
-- For weather queries (schnee, snow, rain, nebel, fog, ice): look at road surface, shoulders, and surroundings.
-- For broken/offline camera queries: only match genuinely broken feeds (placeholder image with cartoon traffic cone, fully black frame, solid color). Dark nighttime roads with visible lanes or lights are NOT broken.
-- If the image is too dark or unclear to confidently judge, answer "no".
+Rules — apply strictly, do not guess or infer:
+- For traffic queries (stau, traffic, vehicles): answer "yes" only if you can clearly see vehicles on a road. Parked vehicles in a lot do not count. A road that merely looks like it could have traffic is not enough — you must see actual vehicles.
+- For weather queries (schnee, snow, rain, nebel, fog, ice): answer "yes" only if the weather condition is clearly visible on the road surface, shoulders, or surroundings. Do not guess based on ambiguous lighting or image quality.
+- For broken/offline camera queries: answer "yes" only for genuinely broken feeds (placeholder image with cartoon traffic cone, fully black frame, solid color). Dark nighttime roads with visible lanes or lights are NOT broken.
+- If the image is too dark, blurry, or unclear to confidently verify the condition, answer "no".
+- When in doubt, always answer "no". A false negative is acceptable; a false positive is not.
 """
 
 VISION_SCHEMA = {
