@@ -487,12 +487,15 @@ HTML_PAGE = """<!DOCTYPE html>
     border: 1px solid #222;
     overflow: hidden;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
   .cell img {
     width: 100%;
-    height: 100%;
+    flex: 1;
     object-fit: contain;
     display: block;
+    min-height: 0;
   }
   .cell .label {
     position: absolute;
@@ -507,22 +510,13 @@ HTML_PAGE = """<!DOCTYPE html>
     letter-spacing: 0.5px;
   }
   .cell .desc {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
-    color: #aaa;
-    font-size: 10px;
-    padding: 16px 8px 5px;
+    color: #888;
+    font-size: 9px;
+    padding: 3px 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 20ch;
-  }
-  .cell:hover .desc {
-    max-width: none;
-    white-space: normal;
+    background: #0a0a0f;
   }
   .cell.loading img {
     opacity: 0.3;
