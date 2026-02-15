@@ -775,9 +775,10 @@ async function loadFilterOptions() {
     data.directions.map(d => `<option value="${d}"${d === preFilterDirection ? ' selected' : ''}>${d}</option>`).join('');
 }
 
-function applyPreFilter() {
+async function applyPreFilter() {
   preFilterHighway = document.getElementById('filter-highway').value;
   preFilterDirection = document.getElementById('filter-direction').value;
+  await clearFilter();
   loadFilterOptions();
   loadPage(1);
 }
