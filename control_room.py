@@ -32,7 +32,10 @@ logging.basicConfig(
 )
 log = logging.getLogger("control_room")
 
-# --- Config ---
+# --- ASFINAG public webcam service params ---
+# These are public parameters from the ASFINAG webcam viewer page
+# (https://www.asfinag.at/verkehr-sicherheit/webcams/). They are used to
+# request a short-lived secToken which authorizes fetching camera frames.
 SSID = "7926870e-4c5a-422b-ae3f-3675f744556d"
 TOKEN = "IyMjIzUwOSM0MTUjYXRERSNpbmZvI2ZhbHNlI05vdFVzZWQjMzY2NDA4NzU3Nw"
 PAGE_URL = "https://webcams2.asfinag.at/webcamviewer/SingleScreenServlet/"
