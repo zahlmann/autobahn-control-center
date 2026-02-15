@@ -736,7 +736,7 @@ HTML_PAGE = """<!DOCTYPE html>
 </div>
 
 <div class="query-bar">
-  <input type="text" id="query-input" placeholder="Filter cameras... (e.g. stau, schnee, kein bild)"
+  <input type="text" id="query-input" placeholder="Filter cameras... (e.g. traffic jam, snow, broken camera)"
          onkeydown="if(event.key==='Enter')submitQuery()">
   <div class="spinner" id="query-spinner"></div>
   <button id="query-btn" onclick="submitQuery()">Analyze</button>
