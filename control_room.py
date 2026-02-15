@@ -518,6 +518,11 @@ HTML_PAGE = """<!DOCTYPE html>
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 20ch;
+  }
+  .cell:hover .desc {
+    max-width: none;
+    white-space: normal;
   }
   .cell.loading img {
     opacity: 0.3;
