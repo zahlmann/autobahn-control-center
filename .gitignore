@@ -1,0 +1,10 @@
+.env
+data/
+frames/
+asfinag_frames/
+.venv/
+__pycache__/
+*.pyc
+*.jpg
+.DS_Store
+uv.lock
