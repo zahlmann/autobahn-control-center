@@ -500,9 +500,9 @@ HTML_PAGE = """<!DOCTYPE html>
     left: 6px;
     background: rgba(0,0,0,0.7);
     color: #8af;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
     border-radius: 3px;
     letter-spacing: 0.5px;
   }
