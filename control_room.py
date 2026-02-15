@@ -646,8 +646,8 @@ HTML_PAGE = """<!DOCTYPE html>
     align-items: center;
     gap: 8px;
     padding: 10px 24px;
-    background: #111118;
-    border-top: 1px solid #222;
+    background: #0e0e14;
+    border-bottom: 1px solid #222;
     flex-shrink: 0;
   }
   .query-bar input {
@@ -735,6 +735,13 @@ HTML_PAGE = """<!DOCTYPE html>
   <span class="cam-count" id="pre-filter-count"></span>
 </div>
 
+<div class="query-bar">
+  <input type="text" id="query-input" placeholder="Filter cameras... (e.g. stau, schnee, kein bild)"
+         onkeydown="if(event.key==='Enter')submitQuery()">
+  <div class="spinner" id="query-spinner"></div>
+  <button id="query-btn" onclick="submitQuery()">Analyze</button>
+</div>
+
 <div class="grid" id="grid"></div>
 
 <div class="pagination">
@@ -743,13 +750,6 @@ HTML_PAGE = """<!DOCTYPE html>
   <div class="page-info" id="page-info">-</div>
   <button id="btn-next" onclick="goPage(currentPage+1)">Next &rsaquo;</button>
   <button id="btn-last" onclick="goPage(totalPages)">&raquo;</button>
-</div>
-
-<div class="query-bar">
-  <input type="text" id="query-input" placeholder="Filter cameras... (e.g. stau, schnee, kein bild)"
-         onkeydown="if(event.key==='Enter')submitQuery()">
-  <div class="spinner" id="query-spinner"></div>
-  <button id="query-btn" onclick="submitQuery()">Analyze</button>
 </div>
 
 <div class="toast" id="toast"></div>
