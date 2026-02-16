@@ -10,6 +10,7 @@ from contextlib import asynccontextmanager
 import logging
 import os
 import re
+import secrets
 import time
 import threading
 from pathlib import Path
@@ -17,14 +18,32 @@ from pathlib import Path
 import requests
 import uvicorn
 from dotenv import load_dotenv
-from fastapi import FastAPI, Query
+from fastapi import Depends, FastAPI, HTTPException, Query, status
 from fastapi.responses import HTMLResponse, Response
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from openai import AsyncOpenAI
 from pydantic import BaseModel
 
 from analyze_feeds import analyze_cameras
 
 load_dotenv()
+
+# --- Password protection (HTTP Basic Auth) ---
+CONTROL_CENTER_PASSWORD = os.environ.get("CONTROL_CENTER_PASSWORD", "")
+security = HTTPBasic()
+
+
+def check_auth(credentials: HTTPBasicCredentials = Depends(security)):
+    if not secrets.compare_digest(credentials.password.encode(), CONTROL_CENTER_PASSWORD.encode()):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid credentials",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+
+
+# Only enforce auth if a password is configured
+auth_deps = [Depends(check_auth)] if CONTROL_CENTER_PASSWORD else []
 
 logging.basicConfig(
     level=logging.INFO,
@@ -237,7 +256,7 @@ async def lifespan(app):
 
 
 # --- App ---
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(lifespan=lifespan, dependencies=auth_deps)
 
 
 class QueryRequest(BaseModel):
